@@ -5,26 +5,26 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const CenteredImageWithAnimation(),
-      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: const AnimatedImage(),
+      ),
     );
   }
 }
 
-class CenteredImageWithAnimation extends StatefulWidget {
-  const CenteredImageWithAnimation({super.key});
+class AnimatedImage extends StatefulWidget {
+  const AnimatedImage({Key? key}) : super(key: key);
 
   @override
-  State<CenteredImageWithAnimation> createState() => _CenteredImageWithAnimationState();
+  _AnimatedImageState createState() => _AnimatedImageState();
 }
 
-class _CenteredImageWithAnimationState extends State<CenteredImageWithAnimation>
-    with SingleTickerProviderStateMixin {
+class _AnimatedImageState extends State<AnimatedImage> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
@@ -32,14 +32,15 @@ class _CenteredImageWithAnimationState extends State<CenteredImageWithAnimation>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
 
     _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
+    // Inicia la animación al cargar el widget
     _controller.forward();
   }
 
@@ -51,13 +52,57 @@ class _CenteredImageWithAnimationState extends State<CenteredImageWithAnimation>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: ScaleTransition(
-          scale: _scaleAnimation,
-          child: Image.asset("DosShotsRosados.png", fit: BoxFit.cover),
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            const Color.fromARGB(255, 49, 18, 55),
+            Color.fromARGB(255, 25, 6, 35), // Color morado en la parte superior
+            Colors.black, // Color negro en la parte inferior
+          ],
         ),
+      ), // Fondo negro
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+            right: screenWidth * 0.15,
+            bottom: screenHeight * 0.3, // 10% desde la parte inferior
+            child: Transform.rotate(
+                angle: 350 * (3.14 / 180),
+                child: Image.asset("assets/pizzaRebanada.png", width: 80, height: 80)),
+          ),
+          Positioned(
+            left: screenWidth * 0.1, // 10% desde la parte izquierda
+            child: Image.asset("assets/audifonos.png", width: 80, height: 80),
+          ),
+          Positioned(
+            top: screenHeight * 0.3,
+            right: screenWidth * 0.1, // 10% desde la parte derecha
+            child: Transform.rotate(
+                angle: 330 * (3.14 / 180), child: Image.asset("assets/Pecado.png", width: 80, height: 80)),
+          ),
+          Center(
+            child: ScaleTransition(
+              scale: _scaleAnimation,
+              child: Image.asset("assets/DosShotsRosados.png",
+                  width: screenHeight * 0.7, height: screenWidth * 0.7),
+            ),
+          ),
+          Positioned(
+            left: screenWidth * 0.1,
+            bottom: screenHeight * 0.3, // 10% desde la parte superior
+            child: Transform.rotate(
+              angle: 330 * (3.14 / 180), // Convierte 30 grados a radianes
+              child: Image.asset("assets/EmojiDiabolico.png", width: 100, height: 100),
+            ),
+          ),
+        ],
       ),
     );
   }
