@@ -72,6 +72,7 @@ class _AnimatedImageState extends State<AnimatedImage> with SingleTickerProvider
         children: [
           Positioned(
             top: screenHeight * 0.06, // 10% desde la parte inferior
+            left: screenWidth * 0.17,
             child: Image.asset(
               "assets/Lets.png",
               width: screenWidth * 0.5,
@@ -79,8 +80,8 @@ class _AnimatedImageState extends State<AnimatedImage> with SingleTickerProvider
             ),
           ),
           Positioned(
-              top: screenHeight * 0.15, // 10% desde la parte inferior
-              child: Image.asset("assets/Drink.png", width: screenWidth * 0.6, height: screenHeight * 0.3)),
+              top: screenHeight * 0.09, // 10% desde la parte inferior
+              child: Image.asset("assets/Drink.png", width: screenWidth * 0.7, height: screenHeight * 0.3)),
           Positioned(
             right: screenWidth * 0.15,
             bottom: screenHeight * 0.3, // 10% desde la parte inferior
