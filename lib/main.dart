@@ -101,8 +101,12 @@ class _AnimatedImageState extends State<AnimatedImage> with SingleTickerProvider
           Center(
             child: ScaleTransition(
               scale: _scaleAnimation,
-              child: Image.asset("assets/DosShotsRosados.png",
-                  width: screenHeight * 0.7, height: screenWidth * 0.7),
+              child: Image.asset(
+                "assets/DosShotsRosadpHD.png",
+                width: screenWidth * 0.7,
+                height: screenHeight * 0.35,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Positioned(
