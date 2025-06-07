@@ -71,6 +71,17 @@ class _AnimatedImageState extends State<AnimatedImage> with SingleTickerProvider
         alignment: Alignment.center,
         children: [
           Positioned(
+            top: screenHeight * 0.06, // 10% desde la parte inferior
+            child: Image.asset(
+              "assets/Lets.png",
+              width: screenWidth * 0.5,
+              height: screenHeight * 0.2,
+            ),
+          ),
+          Positioned(
+              top: screenHeight * 0.15, // 10% desde la parte inferior
+              child: Image.asset("assets/Drink.png", width: screenWidth * 0.6, height: screenHeight * 0.3)),
+          Positioned(
             right: screenWidth * 0.15,
             bottom: screenHeight * 0.3, // 10% desde la parte inferior
             child: Transform.rotate(
