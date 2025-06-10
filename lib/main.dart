@@ -56,12 +56,12 @@ class _AnimatedImageState extends State<AnimatedImage> with SingleTickerProvider
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            const Color.fromARGB(255, 49, 18, 55),
+            Color.fromARGB(255, 49, 18, 55),
             Color.fromARGB(255, 25, 6, 35), // Color morado en la parte superior
             Colors.black, // Color negro en la parte inferior
           ],
@@ -84,35 +84,39 @@ class _AnimatedImageState extends State<AnimatedImage> with SingleTickerProvider
               child: Image.asset("assets/Drink.png", width: screenWidth * 0.7, height: screenHeight * 0.3)),
           Positioned(
             right: screenWidth * 0.15,
-            bottom: screenHeight * 0.3, // 10% desde la parte inferior
+            bottom: screenHeight * 0.15, // 10% desde la parte inferior
             child: Transform.rotate(
                 angle: 350 * (3.14 / 180),
-                child: Image.asset("assets/pizzaRebanada.png", width: 80, height: 80)),
+                child: Image.asset("assets/pizzaRebanada.png",
+                    width: screenWidth * 0.2, height: screenHeight * 0.2)),
           ),
           Positioned(
             left: screenWidth * 0.1, // 10% desde la parte izquierda
-            child: Image.asset("assets/audifonos.png", width: 80, height: 80),
+            child: Image.asset("assets/audifonos.png", width: screenWidth * 0.15, height: screenHeight * 0.2),
           ),
           Positioned(
-            top: screenHeight * 0.3,
+            top: screenHeight * 0.44,
             right: screenWidth * 0.1, // 10% desde la parte derecha
             child: Transform.rotate(
                 angle: 330 * (3.14 / 180), child: Image.asset("assets/Pecado.png", width: 80, height: 80)),
           ),
           Center(
-            child: ScaleTransition(
-              scale: _scaleAnimation,
-              child: Image.asset(
-                "assets/DosShotsRosadpHD.png",
-                width: screenWidth * 0.7,
-                height: screenHeight * 0.35,
-                fit: BoxFit.cover,
+            child: Transform.translate(
+              offset: Offset(0, screenHeight * 0.1), // Mueve 10% hacia abajo
+              child: ScaleTransition(
+                scale: _scaleAnimation,
+                child: Image.asset(
+                  "assets/DosShotsRosadpHD.png",
+                  width: screenWidth * 0.7,
+                  height: screenHeight * 0.35,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
           Positioned(
             left: screenWidth * 0.1,
-            bottom: screenHeight * 0.3, // 10% desde la parte superior
+            bottom: screenHeight * 0.2, // 10% desde la parte superior
             child: Transform.rotate(
               angle: 330 * (3.14 / 180), // Convierte 30 grados a radianes
               child: Image.asset("assets/EmojiDiabolico.png", width: 100, height: 100),
